@@ -1,102 +1,67 @@
 package com.wizards.wayward.applirespo;
-
-import android.hardware.Camera;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.SparseArray;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends Activity {
+    /** Called when the activity is first created. */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getCameraInstance();
-            }
-        });
-
-        // Activating camera
-
-
-        // Taking the frame with the barcode
-
-
-        // Setting up the barcode detector
-        BarcodeDetector detector =
-                new BarcodeDetector.Builder(getApplicationContext())
-                        .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
-                        .build();
-        if(!detector.isOperational()){
-            // Could not set up the detector !
-            return;
-        }
-
-        // Detecting the barcode
-        //Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
-        //SparseArray<Barcode> barcodes = detector.detect(frame);
-
-        // Decoding barcode
-        //Barcode thisCode = barcodes.valueAt(0);
-        //TextView txtView = (TextView) findViewById(R.id.txtContent);
-        //txtView.setText(thisCode.rawValue);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /** A safe way to get an instance of the Camera object. */
-    public static Camera getCameraInstance(){
-        Camera c = null;
         try {
-            c = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK); // attempt to get a Camera instance
+            Button scanner = (Button)findViewById(R.id.scanner);
+            scanner.setOnClickListener(new OnClickListener() {
+
+                public void onClick(View v) {
+                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+                    startActivityForResult(intent, 0);
+                }
+
+            });
+
+            Button scanner2 = (Button)findViewById(R.id.scanner2);
+            scanner2.setOnClickListener(new OnClickListener() {
+
+                public void onClick(View v) {
+                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                    intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
+                    startActivityForResult(intent, 0);
+                }
+
+            });
+
+        } catch (ActivityNotFoundException anfe) {
+            Log.e("onCreate", "Scanner Not Found", anfe);
         }
-        catch (Exception e){
-            // Camera is not available (in use or does not exist)
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                // Handle successful scan
+                Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format , Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP, 25, 400);
+                toast.show();
+            } else if (resultCode == RESULT_CANCELED) {
+                // Handle cancel
+                Toast toast = Toast.makeText(this, "Scan was Cancelled!", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP, 25, 400);
+                toast.show();
+
+            }
         }
-        return c; // returns null if camera is unavailable
     }
 }
