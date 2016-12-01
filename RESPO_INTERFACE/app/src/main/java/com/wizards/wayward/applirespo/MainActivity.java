@@ -1,5 +1,6 @@
 package com.wizards.wayward.applirespo;
 
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getCameraInstance();
             }
         });
 
@@ -58,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         // Detecting the barcode
         //Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
         //SparseArray<Barcode> barcodes = detector.detect(frame);
+
+        // Decoding barcode
+        //Barcode thisCode = barcodes.valueAt(0);
+        //TextView txtView = (TextView) findViewById(R.id.txtContent);
+        //txtView.setText(thisCode.rawValue);
     }
 
     @Override
@@ -80,5 +86,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /** A safe way to get an instance of the Camera object. */
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+        return c; // returns null if camera is unavailable
     }
 }
