@@ -18,9 +18,11 @@ class Items extends FM_Controller {
         $this->load->model('model_items');
 
         $id = json_decode($this->input->get('json'))->ref;
+        $user = json_decode($this->input->get('json'))->user;
 
-        if($this->model_items->add($id))
-            echo json_encode(array('status' => '200', 'ref' => $id, 'stock' => $this->model_items->stock($id)));
+        if($this->model_items->add($id, $user))
+            echo json_encode(array('status' => '200', 'ref' => $id, 'stock' => $this->model_items->stock($id),
+                'score' => $this->model_items->score($user)));
         else
             echo json_encode(array('status' => '503')); // Internal server error
     }
@@ -29,12 +31,14 @@ class Items extends FM_Controller {
         $this->load->model('model_items');
 
         $id = json_decode($this->input->get('json'))->ref;
+        $user = json_decode($this->input->get('json'))->user;
 
-        $feedback = $this->model_items->delete($id);
+        $feedback = $this->model_items->delete($id, $user);
         if($feedback === -1)
             echo json_encode(array('status' => '404')); // Unkown reference
         if($feedback)
-            echo json_encode(array('status' => '200', 'ref' => $id, 'stock' => $this->model_items->stock($id)));
+            echo json_encode(array('status' => '200', 'ref' => $id, 'stock' => $this->model_items->stock($id),
+                'score' => $this->model_items->score($user)));
         else
             echo json_encode(array('status' => '503')); // Internal server error
     }

@@ -1,10 +1,10 @@
 Pour add : 
-url : "http://10.212.111.127:9009/Items/add?json={'ref':'2'}"
-réponse : {"status":"200","ref":"2","stock":"12"}
+url : "http://10.212.111.127:9009/Items/add?json={'ref':'2','user':'1'}"
+réponse : {"status":"200","ref":"2","stock":"12", "score":"500", "rang":"egocentrique"}
 
 pour delete :
-url : "http://10.212.111.127:9009/Items/delete?json={'ref':'2'}"
-réponse : {"status":"200","ref":"2","stock":"11"}
+url : "http://10.212.111.127:9009/Items/delete?json={'ref':'2','user':'1'}"
+réponse : {"status":"200","ref":"2","stock":"11", "score":"300", "rang":"egoiste"}
 
 pour get :
 url : "http://10.212.111.127:9009/Items/get?json={'ref':'2'}"
