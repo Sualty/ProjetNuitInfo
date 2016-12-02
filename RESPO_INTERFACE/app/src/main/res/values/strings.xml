@@ -2,4 +2,8 @@
     <string name="app_name">AppliRespo</string>
     <string name="action_settings">Settings</string>
     <string name="scan">Scan</string>
+    <string name="title_activity_inventory">Fiche inventaire</string>
+    <string name="name">Nom :</string>
+    <string name="ref">Référence code barre :</string>
+    <string name="brand">Marque : </string>
 </resources>
