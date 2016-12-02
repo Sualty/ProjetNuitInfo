@@ -40,6 +40,7 @@ public class MainActivity extends Activity implements OnClickListener{
             String scanFormat = scanningResult.getFormatName();
             formatTxt.setText("FORMAT: " + scanFormat);
             contentTxt.setText("CONTENT: " + scanContent);
+            System.out.print();
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
