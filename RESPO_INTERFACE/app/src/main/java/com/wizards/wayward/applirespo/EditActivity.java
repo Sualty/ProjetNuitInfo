@@ -25,6 +25,16 @@ public class EditActivity extends AppCompatActivity {
                 startActivity(nextAct);
             }
         });
+
+        FloatingActionButton submit = (FloatingActionButton) findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: send modifications to the server
+                Intent nextAct = new Intent(EditActivity.this, InventoryActivity.class);
+                startActivity(nextAct);
+            }
+        });
     }
 
 }

@@ -21,7 +21,8 @@ public class InventoryActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InventoryActivity.this.finish();
+                Intent nextAct = new Intent(InventoryActivity.this, MainActivity.class);
+                startActivity(nextAct);
             }
         });
 
