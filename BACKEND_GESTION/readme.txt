@@ -1,23 +1,2 @@
-Pour add : 
-url : "http://10.212.111.127:9009/Items/add?json={'ref':'2'}"
-réponse : {"status":"200","ref":"2","stock":"12"}
-
-pour delete :
-url : "http://10.212.111.127:9009/Items/delete?json={'ref':'2'}"
-réponse : {"status":"200","ref":"2","stock":"11"}
-
-pour get :
-url : "http://10.212.111.127:9009/Items/get?json={'ref':'2'}"
-réponse : {"status":"200","ref":"2","name":"Dolipran","stock":"0","brand":"Dolipran","image":"\/9j\/4A(...)/\/Z","date_last_modified":"01\/01\/1970 00:00:00"}
-
-pour get_all :
-url : "http://10.212.111.127:9009/Items/get_all"
-réponse : {"status":"200", "data":[{"name":"Dolipran","stock":"0","brand":"Dolipran","image":"\/9j\/4A(...)/\/Z","date_last_modified":"01\/01\/1970 00:00:00"}]
-
-pour get_by_category :
-url : "http://10.212.111.127:9009/Items/get_by_category?json={'cat_ref':'health'}"
-réponse : {"status":"200", "data":[{"name":"Dolipran","stock":"0","brand":"Dolipran","image":"\/9j\/4A(...)/\/Z","date_last_modified":"01\/01\/1970 00:00:00"}]
-
-réponses possibles en cas d'erreur : 
-{"status":"503"} // Erreur de serveur
-{"status":"404"} // Référence inconnue (dans le cas du delete, dans l'ajout on l'ajoute avec un stock à 1)
+In order to launch the webserver, set the document root as the public folder.
+Run with php 5.6 with php built in server.
