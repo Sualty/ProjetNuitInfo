@@ -22,5 +22,6 @@
         android:layout_height="wrap_content"
         android:textIsSelectable="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/scan_format" />
+        android:layout_below="@id/scan_button" />
+
 </RelativeLayout>
