@@ -6,4 +6,8 @@
     <string name="name">Nom :</string>
     <string name="ref">Référence code barre :</string>
     <string name="brand">Marque : </string>
+    <string name="title_activity_edit">Edition</string>
+    <string name="edit_produc_name">Nom du produit...</string>
+    <string name="edit_produc_zone">Emplacement...</string>
+    <string name="go_to_inventory">Inventaire</string>
 </resources>

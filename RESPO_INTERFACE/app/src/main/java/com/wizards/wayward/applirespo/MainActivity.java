@@ -29,6 +29,8 @@ public class MainActivity extends Activity implements OnClickListener, SensorEve
     private Sensor gravity;
     private Sensor linearAcc;
 
+    private Button button;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -53,6 +55,14 @@ public class MainActivity extends Activity implements OnClickListener, SensorEve
         point2 = false;
         point3 = false;
 
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextAct = new Intent(MainActivity.this, InventoryActivity.class);
+                startActivity(nextAct);
+            }
+        });
     }
 
     @Override
